@@ -1,0 +1,18 @@
+ul.topnav#topnav
+  li
+    a(onclick="openNav()") #
+  li
+    a(ui-sref="Dashboard") AgileMate
+  li.right
+    a(ng-click="logOut()") Log Out
+  li.right
+    a(ui-sref) Profile
+
+.sidenav#mySidenav
+  span(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
+  a(ui-sref="Dashboard.projects") Projects
+  a(ui-sref="Dashboard.developers") Developers
+  a(ui-sref) Issues
+  a(ui-sref) Notifications
+#main  
+  ui-view

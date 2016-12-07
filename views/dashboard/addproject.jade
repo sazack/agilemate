@@ -1,0 +1,19 @@
+div(layout='column', layout-padding='', ng-cloak='')
+  form(ng-submit="addProject()")
+    md-content.md-no-momentum
+      md-input-container.md-icon-float.md-block
+        // Use floating label instead of placeholder
+        label Project Title
+        input(type='text' ng-model="project.name")
+      md-input-container.md-block(md-no-float='')
+        textarea(ng-model='project.description' placeholder='Description' rows="8")
+      .col-md-6
+        md-select(ng-model="project.platform" placeholder="Project platform")
+          md-option(ng-repeat="platform in platforms" ng-value="platform.name")
+            {{platform.name}}
+      .col-md-6
+        md-datepicker(ng-click="getDate()" ng-model="project.deadline" md-placeholder="Project Deadline")
+    md-button.md-raised.md-warn(type="submit" value="submit") Submit    
+//-     //-   .col-md-6
+//-     //-     .input-field.col-md-6
+//-     //-       md-datepicker(ng-click="getDate()" ng-model="project.deadline" md-placeholder="Project Deadline")

@@ -1,0 +1,17 @@
+.row
+  .col-sm-4.col-sm-offset-5
+    .card.card-warning.text-xs-center.z-depth-2
+      .card-block(ui-sref="Dashboard.addDev")
+        p.white-text Add New Developer
+
+.row
+  .col-sm-2(ng-repeat="user in users")
+    .card
+      .card-block
+        h4.card-title {{user.username}}
+        h6.card-title.text-muted {{user.address}}
+        h6.card-title.text-muted {{user.phone}}
+      img(src="http://99px.ru/sstorage/86/2016/06/mid_14387_2702.jpg" alt="Card Image")
+      .card-block
+        p.card-text {{user.email}}
+        a.btn.btn-primary View Details    

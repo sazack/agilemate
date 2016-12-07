@@ -1,0 +1,15 @@
+.row
+  .col-sm-4.col-sm-offset-5
+    .card.card-warning.text-xs-center.z-depth-2
+      .card-block(ui-sref="Dashboard.addproject")
+        p.white-text Add New Projects
+.row
+  .col-sm-2(ng-repeat="project in projects")
+    .card
+      .card-block
+        h4.card-title {{project.name}}
+        h6.card-title.text-muted {{project.platform}}
+        h6.card-title.text-muted {{project.deadline}}
+      .card-block
+        p.card-text {{project.description}}
+        a.btn.btn-primary View Details 

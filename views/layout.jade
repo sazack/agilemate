@@ -1,7 +1,10 @@
 doctype html
-html
+html(ng-app="agileMate")
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title
+    include header
+    //- link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    ui-view
+      h1 Hello World
+      

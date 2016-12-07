@@ -1,0 +1,32 @@
+.row
+  form.col-md-12(ng-submit="register()")
+    .row
+      .input-field.col-md-6
+        input#first_name.validate(type='text' ng-model="developer.first_name")
+        label(for='first_name') First Name
+      .input-field.col-md-6
+        input#last_name.validate(type='text' ng-model="developer.last_name")
+        label(for='last_name') Last Name
+    .row
+      .input-field.col-md-12
+        input.validate(type='email' ng-model="developer.email")
+        label(for='email') Email
+    .row
+      .input-field.col-md-12
+        input.validate(type="text" ng-model="developer.username")
+        label(for='username') Username
+    .row
+      .input-field.col-md-12
+        input#password.validate(type='password' ng-model="developer.password")
+        label(for='password') Password
+    .row
+      .input-field.col-md-12
+        input#email.validate(type='text' ng-model="developer.address")
+        label(for='address') Address
+    .row
+      .input-field.col-md-12
+        input.validate(type="text" ng-model="developer.phone")
+        label(for='phone') Phone
+    .row
+      .input-field.col-md-12
+        input.btn.btn-primary(type="submit" Value="Submit")

@@ -1,0 +1,23 @@
+//- .landing
+//-   .form
+//-     form(ng-submit="login()")
+//-       input(type="text" name="username" placeholder="Username" ng-model="userDetail.username")
+//-       input(type="text" name="password" placeholder="password" ng-model="userDetail.password")
+//-       input(type="submit" value="submit")
+.landing
+  form(layout="column", layout-align="center center", layout-fill ng-submit="login()")
+    div(class="loginBox md-whiteframe-z1", layout="column")
+      md-toolbar.md-warn
+        h2(class="md-toolbar-tools")
+          span Login
+      md-content(class="md-padding", layout="column")
+        md-input-container
+          label Username or Email
+          input(type="text" ng-model="userDetail.username")
+        md-input-container
+          label Password
+          input(type="password" ng-model="userDetail.password" )
+        div(layout="row" layout-align="center center" style="padding-top:20px;")
+          md-button(class="md-raised md-warn" type="submit") Login
+          div(flex)
+          md-button(href="", md-raised) Forgot Password
