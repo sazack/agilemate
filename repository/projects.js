@@ -16,5 +16,17 @@ module.exports = {
   update:function(options,success,error){
     console.log(options);
     model.projects.update(options.data,{where:options.where}).then(success,error);
+  },
+  totalProjectDetails:function(options,success,error){
+    model.users.findAll({
+      where:options.where,
+      include:[
+        {
+          model:model.project_devs
+        }
+      ]
+    }).then((data)=>{
+      success(JSON.parse(JSON.stringify(data)))
+    },error)
   }
-}  
+}

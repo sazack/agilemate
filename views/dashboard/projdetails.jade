@@ -1,0 +1,34 @@
+.detail-box
+  //- .col-md-10
+  div(layout='column', ng-cloak='')
+    md-toolbar.md-warn
+      .md-toolbar-tools(layout-align="center center")
+        h2.md-flex {{projDetails.name}}
+    md-content(flex='', layout-padding='')
+      p
+        {{projDetails.description}}
+      //- .col-sm-6
+      md-content
+        span.md-headline Deadline
+          {{projDetails.deadline | date:'yyyy-MM-dd'}}
+      //- .col-sm-6
+      md-content
+        span.md-headline Platform
+          {{projDetails.platform}}
+    md-button.md-raised.md-primary(ng-click="toggleDevAdd()") Add Developers
+    md-button.pull-right(ui-sref="Dashboard.project.devList({id:projDetails.id})") View Developers
+
+ui-view
+
+.addDiv(ng-if="addDevdiv")    
+  .centerDiv
+    .col-md-8
+      form(ng-submit="addDevstoProject()")
+        .centerDiv
+          .col-sm-4(ng-repeat="user in users track by $index")
+            .card(ng-click="storeDevs(user.email,$index)" ng-class="{active:activeClassFlags[$index]}" )
+              .card-block
+                h4.card-title {{user.username}}
+                h6.card-title.text-muted {{user.email}}
+                h6.card-title.text-muted {{user.phone}}
+        md-button.md-raised.md-primary(type="submit") Add   

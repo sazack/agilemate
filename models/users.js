@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         users.hasMany(models.projects)
+        users.hasMany(models.project_devs)
       }
     }
   });

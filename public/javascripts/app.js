@@ -39,10 +39,30 @@ var agileMate = angular.module('agileMate',dependencies)
       .state('Dashboard.projects',{
         url:'/projects',
         templateUrl:'/template/dashboard/projectlist',
+        controller:'DashController'
+      })
+      .state('Dashboard.project',{
+        url:'/project/:name',
+        templateUrl:'/template/dashboard/projdetails',
+        resolve:{
+          projectData:function($http,$stateParams){
+            return $http.get('/user/project/'+$stateParams.name)
+          }
+        },
         controller:'projectController'
       })
-      .state('Dashboard.addproject',{
-        url:'/projects/add',
+      .state('Dashboard.project.devList',{
+        url:'/developers/projects/:id',
+        templateUrl:'/template/dashboard/developers-projects',
+        resolve:{
+          devLists:function($http,$stateParams){
+            return $http.get('/user/project/developers/'+$stateParams.id)
+          }
+        },
+        controller:'DevListController'
+      })
+      .state('projects.addproject',{
+        url:'/add',
         templateUrl:'/template/dashboard/addproject',
         controller:'projectController'
       })

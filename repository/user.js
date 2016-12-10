@@ -8,7 +8,7 @@ module.exports = {
     model.users.create(options.data).then(success,error);
   },
   retrieve:function(options,success,error){
-    options.where.is_deleted = 0
+    // options.where.is_deleted = 0
     model.users.findAll(options).then((data)=>{
       success(JSON.parse(JSON.stringify(data)))
     },error);

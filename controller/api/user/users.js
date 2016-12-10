@@ -159,5 +159,26 @@ module.exports = {
     function error(err){
       if(err) return next(err);
     }
-  }
+  },
+  // searchDevs: (req,res,next)=>{
+  //   var options = {
+  //     where:{
+  //       username:req.agileMate_userData.username
+  //     }
+  //   }
+  //   users.retrieve(options,success,error)
+  //   function success(result){
+  //     if(result && result.length){
+  //       req,cdata ={
+  //         success:1,
+  //         message:"Search Results for Users",
+  //         data:result
+  //       }
+  //       next();
+  //     }
+  //   }
+  //   function error(err){
+  //     if(err) return next (err);
+  //   }
+  // }
 }

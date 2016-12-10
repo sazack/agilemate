@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var config = require('./config/config.js')
 var models = require('./models')
 var http = require('http')
+var sanitize = require('google-caja').sanitize
+var promise = require('promise')
 // var routes = require('./routes/index');
 // var users = require('./routes/users');
 
@@ -31,6 +33,8 @@ app.use('/bower_components',express.static( path.join(__dirname,'/bower_componen
 
 app.use((req,res,next)=>{
   req.collect = require('./lib/collect')
+  req.sanitize = sanitize
+  req.Promise = promise
   next();
 })
 require('./controller/api')(app);

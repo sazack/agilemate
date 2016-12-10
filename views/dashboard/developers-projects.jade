@@ -1,0 +1,10 @@
+.addDiv(ng-if="projectdevelopers")    
+  .centerDiv
+    .col-md-8
+      form(ng-submit="addDevstoProject()")
+        .centerDiv
+          .col-sm-4(ng-repeat="devs in projectdevelopers track by $index")
+            .card
+              .card-block
+                h4.card-title {{devs[0].username}}
+                h6.card-title.text-muted {{devs[0].email}}
