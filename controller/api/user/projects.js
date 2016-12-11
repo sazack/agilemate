@@ -7,7 +7,6 @@ var project_devs = require('../../../repository/project_devs');
 module.exports = {
 
   collect:(req,res,next)=>{
-    console.log("Thokyo");
     var fields = ['id','name','description','platform','deadline']
     var reqdata = new req.collect(req,fields);
 
@@ -174,5 +173,27 @@ module.exports = {
       console.log(error);
       return next(new Error(error));
     })
+  },
+  viewMyProjects:(req,res,next)=>{
+    var options={
+      where:{
+        userId:req.user.id
+      }
+    }
+    project_devs.viewMyProjects(options,success,error)
+    function success(result){
+      if(result && result.length){
+        // console.log(result);
+        req.cdata={
+          success:1,
+          message:"Associated Projects Retrieved Successfully",
+          data:result
+        }
+        next();
+      }
+    }
+    function error(err){
+      if(err) return next(err)
+    }
   }
 }

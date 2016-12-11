@@ -1,0 +1,16 @@
+//- h1 Hello 
+.row(ng-repeat="sprint in projSprints")
+  .col-sm-2
+    .card
+      .card-block
+        h4.card-title {{sprint.name}}
+        label Start
+        h6.card-title.text-muted {{sprint.from | date:'yyyy-MM-dd'}}
+        label End
+        h6.card-title.text-muted {{sprint.to | date:'yyyy-MM-dd'}}
+      .card-block
+        p.card-text {{sprint.description}}
+        a.btn.btn-primary(ui-sref="Dashboard.sprintList.add({projectSprintId:sprint.id})") Add Tasks
+        a.btn.btn-warning(ui-sref="Dashboard.taskList({projectSprintId:sprint.id})") View Tasks 
+        
+ui-view

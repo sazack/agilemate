@@ -9,7 +9,12 @@ angular.module('controllers',[])
       if(result.success){
         console.log(result);
         $window.localStorage.agileMateToken = result.token
-        $state.go('Dashboard')
+        if(result.user_type==2){
+          $state.go('userDash')
+        }
+        else{
+          $state.go('Dashboard')
+        }
       }
       else{
         alert(result.error_msg)
@@ -54,6 +59,23 @@ angular.module('controllers',[])
       })
   }
   $scope.viewProjects();
+  $scope.project={}
+  $scope.addProject = function(){
+    console.log($scope.project);
+    $http.post('/user/project/add',$scope.project).
+      success(function(result){
+        if(result.success){
+          alert("Project Added Successfully")
+          $state.go('Dashboard.projects')
+        }
+      }).
+      error(function(err){
+        console.log(err);
+      })
+  }
+  $scope.platforms = [{id:1,name:'Web'},{id:2,name:'Android'},{id:3,name:'iOS'},{id:4,name:'Desktop'},{id:5,name:'cross platform'}]
+  console.log($scope.project.platform);
+  $scope.project.platform ==[{id:1,name:"web"}]
 }])
 
 .controller('DevController',['$scope','$state','$http',function($scope,$state,$http){
@@ -99,23 +121,7 @@ angular.module('controllers',[])
   $scope.getDate = function(){
     $scope.project.deadline= new Date();
   }
-  $scope.platforms = [{id:1,name:'Web'},{id:2,name:'Android'},{id:3,name:'iOS'},{id:4,name:'Desktop'},{id:5,name:'cross platform'}]
-  console.log($scope.project.platform);
-  $scope.project.platform ==[{id:1,name:"web"}]
 
-  $scope.addProject = function(){
-    console.log($scope.project);
-    $http.post('/user/project/add',$scope.project).
-      success(function(result){
-        if(result.success){
-          alert("Project Added Successfully")
-          $state.go('Dashboard.projects')
-        }
-      }).
-      error(function(err){
-        console.log(err);
-      })
-  }
   $scope.viewProjectDetail = function(id){
     console.log(id);
     // console.log("Yaha bata thoke");
@@ -181,3 +187,100 @@ angular.module('controllers',[])
     $scope.projectdevelopers = devLists.data.data;
   }
 }])
+.controller('addSprint',['$scope','$state','$stateParams','$http',function($scope,$state,$stateParams,$http){
+  $scope.sprint={}
+  if($stateParams.id){
+    // console.log($stateParams.id);
+    $scope.sprint.projectId = $stateParams.id
+  }
+  // console.log($stateParams);
+  $scope.addSprint = function(){
+    console.log($scope.sprint)
+    $http.post('/user/project/sprint/add',$scope.sprint).
+    success(function(result){
+      if(result.success){
+        alert("Sprint Added Successfully")
+        $state.go('Dashboard.projects')
+      }
+    })
+  }
+}])
+
+.controller('sprintlisting',['$scope','$state','sprintList','$rootScope',function($scope,$state,sprintList,$rootScope){
+  if(sprintList.data.success){
+    $scope.projSprints = sprintList.data.data
+  }
+}])
+
+.controller('taskAdd',['$scope','$state','$http','$stateParams','$rootScope',function($scope,$state,$http,$stateParams,$rootScope){
+  $scope.task={};
+  console.log($stateParams);
+  if($stateParams.id){
+    $scope.task.projectSprintId = $stateParams.id;
+    // console.log("Yo ho"+ $scope.task.sprintProjectId);
+  }
+  $scope.task.projectId= $rootScope.projectId;
+  $scope.addTasks = function(){
+    console.log($scope.task);
+    $http.post('/user/project/task/add',$scope.task).
+      success(function(result){
+        if(result.success){
+          // console.log(result);
+          alert("Task Created Successfully")
+          $state.reload();
+        }
+      }).
+      error(function(err){
+        if(err) return next(err);
+      })
+  }
+  $scope.listProjectDevs = function(){
+    $http.get('/user/developers/list').
+    success(function(result){
+      if(result.success){
+        $scope.users =result.data
+      }
+    }).
+    error(function(err){
+      console.log(err);
+    })
+  }
+  $scope.listProjectDevs();
+  // console.log($scope.users);
+  // $scope.task.username == $scope.users.username
+}])
+
+.controller('tasksList',function($scope,$state,taskDetails){
+  // console.log(taskDetails);
+  if(taskDetails.data.success){
+    $scope.taskInfo = taskDetails.data.data
+  }
+})
+
+.controller('userProject',function($scope,$state,$http){
+  $scope.viewMyProjects = function(){
+    $http.get('/user/projects').
+    success(function(result){
+      $scope.myProjects = result.data
+      console.log($scope.myProjects);
+    }).
+    error(function(error){
+      console.log(error);
+    })
+  }
+  $scope.viewMyProjects();
+})
+
+.controller('userTasks',function($scope,$state,$http){
+  $scope.viewMyTasks = function(){
+    $http.get('/user/tasks').
+    success(function(result){
+      console.log(result);
+      $scope.myTasks = result.data
+    }).
+    error(function(error){
+      console.log(error);
+    })
+  }
+  $scope.viewMyTasks();
+})

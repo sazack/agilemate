@@ -61,10 +61,62 @@ var agileMate = angular.module('agileMate',dependencies)
         },
         controller:'DevListController'
       })
-      .state('projects.addproject',{
+      .state('Dashboard.addproject',{
         url:'/add',
         templateUrl:'/template/dashboard/addproject',
-        controller:'projectController'
+        controller:'DashController'
+      })
+      .state('Dashboard.addSprint',{
+        url:'/project/sprint/add',
+        templateUrl:'/template/dashboard/addsprint',
+        controller:'addSprint',
+        params:{
+          id:null
+        }
+      })
+      .state('Dashboard.sprintList',{
+        url:'/project/sprint/:id',
+        templateUrl:'/template/dashboard/sprintlists',
+        resolve:{
+          sprintList:function($http,$stateParams,$rootScope){
+            $rootScope.projectId = $stateParams.id
+            return $http.get('/user/project/sprint/'+$stateParams.id)
+          }
+        },
+        controller:'sprintlisting'
+      })
+      .state('Dashboard.sprintList.add',{
+        url:'/add',
+        templateUrl:'/template/dashboard/addtasks',
+        controller:'taskAdd',
+        params:{
+          projectSprintId:null
+        }
+      })
+      .state('Dashboard.taskList',{
+        url:'/project/sprint/tasks/:projectSprintId',
+        templateUrl:'/template/dashboard/viewtasks',
+        resolve:{
+          taskDetails: function($http,$stateParams){
+            console.log($stateParams);
+            return $http.get('/user/project/task/'+ $stateParams.projectSprintId)
+          }
+        },
+        controller:'tasksList'
+      })
+      .state('userDash',{
+        url:'/user/',
+        templateUrl:'/template/users/index',
+      })
+      .state('userDash.projects',{
+        url:'projects',
+        templateUrl:'/template/users/projects',
+        controller:'userProject'
+      })
+      .state('userDash.tasks',{
+        url:'tasks',
+        templateUrl:'/template/users/tasks',
+        controller:'userTasks'
       })
 
     $httpProvider.interceptors.push(function($q,$window){

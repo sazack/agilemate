@@ -1,0 +1,12 @@
+.row
+  .col-sm-2(ng-repeat="myProject in myProjects")
+    .card
+      .card-block
+        h4.card-title {{myProject.project.name}}
+        h6.card-title.text-muted {{myProject.project.platform}}
+        label Deadline
+        h6.card-title.text-muted {{myProject.project.deadline | date:'yyyy-MM-dd'}}
+      .card-block
+        p.card-text {{myProject.project.description}}
+        label Assigned Since
+        h6 {{myProject.createdAt | date:'yyyy-MM-dd'}} 

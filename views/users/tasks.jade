@@ -1,0 +1,12 @@
+.row
+  .col-sm-2(ng-repeat="task in myTasks")
+    .card
+      .card-block
+        h4.card-title {{task.project.name}}
+        h6.card-title.text-muted {{task.name}}
+        label Created On
+        h6.card-title.text-muted {{task.createdAt | date:'yyyy-MM-dd'}}
+      .card-block
+        p.card-text {{task.description}}
+        label Platform
+        h6 {{task.project.platform}}

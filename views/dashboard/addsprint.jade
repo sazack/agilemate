@@ -1,0 +1,17 @@
+div(layout='column', layout-padding='', ng-cloak='')
+  form(ng-submit="addSprint()")
+    md-content.md-no-momentum
+      md-input-container.md-icon-float.md-block
+        // Use floating label instead of placeholder
+        label Sprint Name
+        input(type='text' ng-model="sprint.name")
+      md-input-container.md-block(md-no-float='')
+        textarea(ng-model='sprint.description' placeholder='Description' rows="8")
+      .col-md-6
+        md-datepicker(ng-model="sprint.from" md-placeholder="Sprint Start" ng-click="getDate()")
+      .col-md-6
+        md-datepicker(ng-click="getDate()" ng-model="sprint.to" md-placeholder="Sprint End")
+    md-button.md-raised.md-warn(type="submit" value="submit") Submit    
+//-     //-   .col-md-6
+//-     //-     .input-field.col-md-6
+//-     //-       md-datepicker(ng-click="getDate()" ng-model="project.deadline" md-placeholder="Project Deadline")

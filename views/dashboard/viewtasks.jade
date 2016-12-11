@@ -1,0 +1,19 @@
+.detail-box
+  .container(ng-repeat="task in taskInfo")
+    div(layout='column', ng-cloak='')
+      md-toolbar.md-warn
+        .md-toolbar-tools(layout-align="center center")
+          h2.md-flex {{task.name}}
+      md-content(flex='', layout-padding='')
+        p
+          {{task.description}}
+        //- .col-sm-6
+        md-content
+          span.md-headline Created At
+            {{task.createdAt | date:'yyyy-MM-dd'}}
+        //- .col-sm-6
+        md-content
+          span Assigned To :
+            h6 {{task.user.username}}
+            h6 {{task.user.email}}
+    //- md-button.md-raised.md-primary(ng-click="toggleDevAdd()") Add Developers

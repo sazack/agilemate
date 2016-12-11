@@ -17,7 +17,9 @@
           {{projDetails.platform}}
     md-button.md-raised.md-primary(ng-click="toggleDevAdd()") Add Developers
     md-button.pull-right(ui-sref="Dashboard.project.devList({id:projDetails.id})") View Developers
-
+    md-button.pull-right(ui-sref="Dashboard.addSprint({id:projDetails.id})") Add Sprint
+    md-button.pull-right(ui-sref="Dashboard.sprintList({id:projDetails.id})") View Sprints
+    
 ui-view
 
 .addDiv(ng-if="addDevdiv")    
