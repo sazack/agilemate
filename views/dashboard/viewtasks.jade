@@ -1,3 +1,9 @@
+.row
+  .col-sm-4.col-sm-offset-5
+    .card.card-warning.text-xs-center.z-depth-2
+      .card-block(ui-sref="Dashboard.sprintList.add")
+        p.white-text Add New Tasks
+
 .detail-box
   .container(ng-repeat="task in taskInfo")
     div(layout='column', ng-cloak='')

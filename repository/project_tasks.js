@@ -23,15 +23,7 @@ module.exports = {
     model.project_tasks.update(options.data,{where:options.where}).then(success,error);
   },
   getMyTasks:function(options,success,error){
-    model.project_tasks.findAll({
-      where:options.where,
-      include:[
-        {
-          model:model.project_sprints,
-          model:model.projects
-        }
-      ]
-    }).then((data)=>{
+    model.project_tasks.findAll(options).then((data)=>{
       success(JSON.parse(JSON.stringify(data)))
     },error)
   }

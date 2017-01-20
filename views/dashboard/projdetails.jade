@@ -21,16 +21,17 @@
     md-button.pull-right(ui-sref="Dashboard.sprintList({id:projDetails.id})") View Sprints
     
 ui-view
-
-.addDiv(ng-if="addDevdiv")    
-  .centerDiv
-    .col-md-8
-      form(ng-submit="addDevstoProject()")
-        .centerDiv
-          .col-sm-4(ng-repeat="user in users track by $index")
-            .card(ng-click="storeDevs(user.email,$index)" ng-class="{active:activeClassFlags[$index]}" )
-              .card-block
-                h4.card-title {{user.username}}
-                h6.card-title.text-muted {{user.email}}
-                h6.card-title.text-muted {{user.phone}}
-        md-button.md-raised.md-primary(type="submit") Add   
+//- 
+//- .addDiv(ng-if="addDevdiv")    
+//-   .centerDiv
+//-     .col-md-8
+//-       form(ng-submit="addDevstoProject()")
+//-         .centerDiv
+//-           .col-sm-4(ng-repeat="user in users track by $index")
+//-             .card(ng-click="storeDevs(user.email,$index)" ng-class="{active:activeClassFlags[$index]}")
+//-               .container
+//-                 .card-block
+//-                   h4.card-title {{user.username}}
+//-                   h6.card-title.text-muted {{user.email}}
+//-                   h6.card-title.text-muted {{user.phone}}
+//-         md-button.md-raised.md-primary(type="submit") Add   

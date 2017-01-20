@@ -11,6 +11,9 @@ module.exports = function(app){
 
   app.post('/login',users.collect,users.authenticate,mw.respond,mw.error);
 
+  app.post('/register',users.collect,users.register,mw.respond,mw.error);
+
+
   app.get('/template/:folderName/:fileName', (req,res,next)=>{
 		if(req.params.folderName && req.params.fileName){
 	  		res.render(req.params.folderName+'/'+req.params.fileName)

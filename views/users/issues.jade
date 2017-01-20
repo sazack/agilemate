@@ -1,0 +1,12 @@
+.row
+  .col-sm-2(ng-repeat="issue in issues")
+    .card
+      .card-block
+        h4.card-title {{issue.name}}
+        h6.card-title.text-muted {{issue.project.name}}
+        label Created On
+        h6.card-title.text-muted {{issue.createdAt | date:'yyyy-MM-dd'}}
+      .card-block
+        p.card-text {{issue.descriptions}}
+        label Platform
+        h6 {{issue.project.platform}}

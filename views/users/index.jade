@@ -6,13 +6,12 @@ ul.topnav#topnav
   li.right
     a(ng-click="logOut()") Log Out
   li.right
-    a(ui-sref) Profile
+    a(ui-sref="userDash.profile") Profile
 
 .sidenav#mySidenav
   span(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
   a(ui-sref="userDash.projects") Projects
   a(ui-sref="userDash.tasks") Tasks
-  a Issues
-  a Notifications
+  a(ui-sref="userDash.issues") Issues
 #main  
   ui-view

@@ -1,0 +1,33 @@
+//- .centerDiv
+//-   .col-sm-2
+//-     md-toolbar.md-tall.md-warn.md-hue-2
+//-       h2.md-toolbar-tools
+//-         span{{projects.length}} Active Projects
+//-   .col-sm-2
+//-     md-toolbar.md-tall.md-warn.md-hue-2
+//-       h2.md-toolbar-tools
+//-         span{{users.length}} Registered Developers
+//-   .col-sm-2
+//-     md-toolbar.md-tall.md-warn.md-hue-2
+//-       h2.md-toolbar-tools
+//-         span{{projects.length}} Platforms                  
+//-   .col-sm-2
+//-     md-toolbar.md-tall.md-warn.md-hue-2
+//-       h2.md-toolbar-tools
+//-         span {{issues.length}} Created Issues
+div(layout='column', ng-cloak='')
+  md-content(flex='', layout-padding='')
+    .centerDiv
+      md-grid-list(md-cols-xs='1', md-cols-sm='2', md-cols-md='4', md-cols-gt-md='3', md-row-height-gt-md='1:1', md-row-height='2:2', md-gutter='12px', md-gutter-gt-sm='8px')
+        md-grid-tile
+          h1.md-display-4 {{projects.length || 'N/A'}}
+          md-grid-tile-footer.red(layout-align="center center")
+            h3.md-headline Active Projects
+        md-grid-tile
+          h1.md-display-4 {{users.length || 'N/A'}}
+          md-grid-tile-footer.red(layout-align="center center")
+            h3.md-headline Registered Developers
+        md-grid-tile
+          h1.md-display-4 {{platforms.length}}
+          md-grid-tile-footer.red(layout-align="center center")
+            h3.md-headline Active Platforms              

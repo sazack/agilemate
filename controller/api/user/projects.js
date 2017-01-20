@@ -11,7 +11,7 @@ module.exports = {
     var reqdata = new req.collect(req,fields);
 
     req.agileMate_ProjData = reqdata.collect(req,res)
-    // console.log(req.agileMate_ProjData);
+    console.log(req.agileMate_ProjData);
     next();
   },
 
@@ -164,8 +164,6 @@ module.exports = {
           message:"developers Listed",
           data:userInfo
         }
-        // console.log("Yaha chu");
-        // console.log(req.cdata.data);
         next();
       })
     }).
@@ -183,7 +181,7 @@ module.exports = {
     project_devs.viewMyProjects(options,success,error)
     function success(result){
       if(result && result.length){
-        // console.log(result);
+        console.log(result);
         req.cdata={
           success:1,
           message:"Associated Projects Retrieved Successfully",

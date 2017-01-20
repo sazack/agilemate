@@ -7,8 +7,8 @@ var users = require('./users')
 var projects = require('./projects')
 var sprints = require('./project_sprint')
 var tasks = require('./project_tasks')
-// console.log("Ma Chu"+router.post);
-router.post('/register',users.collect,users.register,mw.respond,mw.error);
+var issues= require('./project_issues')
+
 router.post('/developer/add',users.collect,users.addDev,mw.respond,mw.error);
 router.get('/list',users.retrieve,mw.respond,mw.error);
 router.get('/developers/list',users.listDevs,mw.respond,mw.error);
@@ -28,6 +28,12 @@ router.get('/project/task/:projectSprintId',tasks.collect,tasks.retrieve,mw.resp
 
 router.get('/projects',projects.viewMyProjects,mw.respond,mw.error);
 router.get('/tasks',tasks.viewMyTask,mw.respond,mw.error);
+
+router.post('/issues/add',issues.collect,issues.create,mw.respond,mw.error);
+router.get('/issues/list',issues.retrieve,mw.respond,mw.error);
+router.get('/profile',users.myDetail,mw.respond,mw.error);
+router.get('/issues',issues.myIssues,mw.respond,mw.error);
+router.put('/profile/update',users.collect,users.update,mw.respond,mw.error);
 // router.get('/')
 module.exports = router;
 // console.log(router.route);

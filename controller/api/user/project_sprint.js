@@ -8,7 +8,7 @@ module.exports = {
     var reqdata = new req.collect(req,fields);
 
     req.agileMate_sprintData = reqdata.collect(req,res)
-    // console.log(req.agileMate_sprintData);
+    console.log(req.agileMate_sprintData);
     next();
   },
 
@@ -55,5 +55,5 @@ module.exports = {
       function error(err){
         if(err) return next(err);
       }
-  }
+  },
 }

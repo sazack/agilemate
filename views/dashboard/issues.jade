@@ -1,0 +1,23 @@
+.row
+  .col-sm-4.col-sm-offset-5
+    .card.card-warning.text-xs-center.z-depth-2
+      .card-block(ui-sref="Dashboard.addIssues")
+        p.white-text Add New Issue
+.row
+  .col-sm-2(ng-repeat="issue in issues")
+    div(layout='column', ng-cloak='')
+      md-toolbar.md-warn
+        .md-toolbar-tools(layout-align="center center")
+          h2.md-flex {{issue.name}}
+      md-content(flex='', layout-padding='')
+        p
+          {{issue.descriptions}}
+        //- .col-sm-6
+        md-content
+          span.md-headline Project Name :
+            {{issue.project.name}}
+        //- .col-sm-6
+        md-content(ng-repeat="user in users")
+          span Assigned To :
+            h6 {{user.username}}
+            h6 {{user.email}}

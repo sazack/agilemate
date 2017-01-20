@@ -26,6 +26,11 @@ var agileMate = angular.module('agileMate',dependencies)
         templateUrl:'/template/dashboard/home',
         controller:'DashController'
       })
+      .state('Dashboard.feed',{
+        url:'/home',
+        templateUrl:'/template/dashboard/feed',
+        controller:'DashController'
+      })
       .state('Dashboard.developers',{
         url:'/developers',
         templateUrl:'/template/dashboard/developers',
@@ -107,16 +112,45 @@ var agileMate = angular.module('agileMate',dependencies)
       .state('userDash',{
         url:'/user/',
         templateUrl:'/template/users/index',
+        controller:'userDashController'
       })
       .state('userDash.projects',{
         url:'projects',
         templateUrl:'/template/users/projects',
-        controller:'userProject'
+        controller:'userDashController'
       })
       .state('userDash.tasks',{
         url:'tasks',
         templateUrl:'/template/users/tasks',
-        controller:'userTasks'
+        controller:'userDashController'
+      })
+      .state('userDash.issues',{
+        url:'issues',
+        templateUrl:'/template/users/issues',
+        controller:'userDashController'
+      })
+
+      .state('Dashboard.issues',{
+        url:'/issues',
+        templateUrl:'/template/dashboard/issues',
+        controller:'viewIssues'
+      })
+
+      .state('Dashboard.addIssues',{
+        url:'/issues/add',
+        templateUrl:'/template/dashboard/addissues',
+        controller:'DashController',
+      })
+
+      .state('userDash.profile',{
+        url:'profile',
+        templateUrl:'/template/dashboard/profile',
+        controller:'profileController'
+      })
+      .state('Dashboard.profile',{
+        url:'/profile',
+        templateUrl:'/template/dashboard/profile',
+        controller:'profileController'
       })
 
     $httpProvider.interceptors.push(function($q,$window){

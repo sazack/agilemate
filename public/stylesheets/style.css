@@ -7,10 +7,7 @@ body .landing{
 
 height:100vh;
 width: :100vw;
-background: #F3904F; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #F3904F , #3B4371); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #F3904F , #3B4371); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+webkit-linear-gradient(90deg,#00537E 10%,#3AA17E 90%); background: linear-gradient(90deg,#00537E 10%,#3AA17E 90%);
 }
 
 .loginBox {
@@ -55,4 +52,19 @@ background: linear-gradient(to left, #F3904F , #3B4371); /* W3C, IE 10+/ Edge, F
 
 .addDiv{
   margin-top: 10vh;
+}
+
+.scroll-container {
+  overflow-x;
+}
+
+md-grid-list {
+  width: 1000px;
+}
+
+.card.active{
+  .container{
+    border-style: dashed;
+    border-color: red;
+  }
 }

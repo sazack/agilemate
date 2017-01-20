@@ -10,14 +10,14 @@ angular.module('controllers',[])
         console.log(result);
         $window.localStorage.agileMateToken = result.token
         if(result.user_type==2){
-          $state.go('userDash')
+          $state.go('userDash.projects')
         }
         else{
-          $state.go('Dashboard')
+          $state.go('Dashboard.feed')
         }
       }
       else{
-        alert(result.error_msg)
+        toastr.error(result.error_msg)
       }
     }).
     error(function(err){
@@ -25,15 +25,14 @@ angular.module('controllers',[])
         console.log(err);
       }
     })
-    console.log("Hello");
   }
   $scope.signup = function(){
     // console.log($scope.organization)
-    $http.post('/user/register',$scope.organization).
+    $http.post('/register',$scope.register).
     success(function(result){
       if(result.success){
         $window.localStorage.agileMateToken = result.token
-        $state.go('Dashboard')
+        $state.go('Dashboard.feed')
       }
     }).
     error(function(err){
@@ -42,7 +41,7 @@ angular.module('controllers',[])
   }
 }])
 
-.controller('DashController',['$scope','$state','$http','$window',function($scope,$state,$http,$window){
+.controller('DashController',['$scope','$state','$http','$window',function($scope,$state,$http,$window,$rootScope){
   // console.log("Hello");
   $scope.logOut = function(){
     delete $window.localStorage.agileMateToken
@@ -65,7 +64,7 @@ angular.module('controllers',[])
     $http.post('/user/project/add',$scope.project).
       success(function(result){
         if(result.success){
-          alert("Project Added Successfully")
+          toastr.success("Project Added Successfully")
           $state.go('Dashboard.projects')
         }
       }).
@@ -76,6 +75,48 @@ angular.module('controllers',[])
   $scope.platforms = [{id:1,name:'Web'},{id:2,name:'Android'},{id:3,name:'iOS'},{id:4,name:'Desktop'},{id:5,name:'cross platform'}]
   console.log($scope.project.platform);
   $scope.project.platform ==[{id:1,name:"web"}]
+
+  $scope.listProjectDevs = function(){
+    $http.get('/user/developers/list').
+    success(function(result){
+      if(result.success){
+        $scope.users =result.data
+      }
+    }).
+    error(function(err){
+      console.log(err);
+    })
+  }
+  $scope.listProjectDevs();
+
+  $scope.addProjectIssues = function(){
+    console.log($scope.issue);
+    $http.post('/user/issues/add',$scope.issue).
+      success(function(result){
+        if(result.success){
+          // console.log(result);
+          toastr.success("Issues Added successfully");
+          $state.go("Dashboard.feed")
+        }
+      }).
+      error(function(err){
+        console.log(err);
+      })
+  }
+  $scope.viewIssues = function(){
+    $http.get('/user/issues/list').
+      success(function(result){
+        if(result.success){
+          $scope.issues = result.data.result
+          $scope.users= result.data.user
+          console.log($scope.issues);
+        }
+      })
+      .error(function(err){
+        console.log(err);
+      })
+  }
+  $scope.viewIssues();
 }])
 
 .controller('DevController',['$scope','$state','$http',function($scope,$state,$http){
@@ -101,7 +142,7 @@ angular.module('controllers',[])
     $http.post('/user/developer/add',$scope.developer).
       success(function(result){
         if(result.success){
-          alert("Developer Added Successfully")
+          toastr.success("Developer Added Successfully")
           $state.go('Dashboard.developers')
         }
       }).
@@ -149,18 +190,20 @@ angular.module('controllers',[])
       console.log(err);
     })
   }
+  $scope.listProjectDevs();
   $scope.project.developers =[];
   $scope.activeClassFlags=[];
-  $scope.listProjectDevs();
   $scope.storeDevs = function(email,index){
     $scope.activeClassFlags[index] = $scope.activeClassFlags[index] ? false:true;
     console.log($scope.activeClassFlags);
     var index = $scope.project.developers.indexOf(email)
     if(index>-1){
       $scope.project.developers.splice(index,1)
+      toastr.error(email+"has been Unselected")
     }
     else{
       $scope.project.developers.push(email)
+      toastr.success(email+"has been Selected")
     }
   }
   $scope.project.id = $scope.projDetails.id
@@ -170,7 +213,7 @@ angular.module('controllers',[])
       success(function(result){
         console.log(result);
         if(result.success){
-          alert("Developers Added Successfully")
+          toastr.success("Developers Added Successfully")
           $state.go('Dashboard.project.devList');
         }
       }).
@@ -199,7 +242,7 @@ angular.module('controllers',[])
     $http.post('/user/project/sprint/add',$scope.sprint).
     success(function(result){
       if(result.success){
-        alert("Sprint Added Successfully")
+        toastr.success("Sprint Added Successfully")
         $state.go('Dashboard.projects')
       }
     })
@@ -226,7 +269,7 @@ angular.module('controllers',[])
       success(function(result){
         if(result.success){
           // console.log(result);
-          alert("Task Created Successfully")
+          toastr.success("Task Created Successfully")
           $state.reload();
         }
       }).
@@ -251,27 +294,61 @@ angular.module('controllers',[])
 }])
 
 .controller('tasksList',function($scope,$state,taskDetails){
-  // console.log(taskDetails);
+  console.log(taskDetails);
   if(taskDetails.data.success){
     $scope.taskInfo = taskDetails.data.data
   }
 })
 
-.controller('userProject',function($scope,$state,$http){
-  $scope.viewMyProjects = function(){
-    $http.get('/user/projects').
-    success(function(result){
-      $scope.myProjects = result.data
-      console.log($scope.myProjects);
-    }).
-    error(function(error){
-      console.log(error);
-    })
-  }
-  $scope.viewMyProjects();
+.controller('profileController',function($scope,$state,$http){
+ $scope.viewProfile = function(){
+   $http.get('/user/profile').
+     success(function(result){
+       if(result.success){
+         $scope.profile = result.data[0]
+       }
+     }).
+     error(function(err){
+       console.log(err);
+     })
+ }
+ $scope.viewProfile();
+    $scope.toggleEdit=function(){
+      $scope.edit=true;
+    }
+    $scope.editProfile = function(){
+      $http.put('/user/profile/update',$scope.profile).
+        success(function(result){
+          if(result.success){
+            toastr.success("Profile Updated Successfully")
+            $state.go('userDash.projects')
+          }
+        }).
+        error(function(err){
+          console.log(err);
+        })
+    }
 })
 
-.controller('userTasks',function($scope,$state,$http){
+.controller('userDashController',function($scope,$http,$state,$window){
+  $scope.logOut= function(){
+    delete $window.localStorage.agileMateToken,
+    $state.go('home')
+  }
+  $scope.myIssues= function(){
+    $http.get('/user/issues').
+      success(function(result){
+        if(result.success){
+          $scope.issues = result.data
+        }
+      }).
+      error(function(err){
+        if(err){
+          console.log(err);
+        }
+      })
+  }
+  $scope.myIssues();
   $scope.viewMyTasks = function(){
     $http.get('/user/tasks').
     success(function(result){
@@ -283,4 +360,29 @@ angular.module('controllers',[])
     })
   }
   $scope.viewMyTasks();
+  $scope.viewIssues = function(){
+    $http.get('/user/issues/list').
+      success(function(result){
+        if(result.success){
+          $scope.issues = result.data.result
+          $scope.users= result.data.user
+          console.log($scope.issues);
+        }
+      })
+      .error(function(err){
+        console.log(err);
+      })
+  }
+  $scope.viewIssues();
+  $scope.viewMyProjects = function(){
+    $http.get('/user/projects').
+    success(function(result){
+      console.log(result);
+      $scope.myProjects = result.data
+    }).
+    error(function(error){
+      console.log(error);
+    })
+  }
+  $scope.viewMyProjects();
 })

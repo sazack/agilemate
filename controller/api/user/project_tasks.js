@@ -5,7 +5,7 @@ var users = require('../../../repository/user');
 
 module.exports = {
   collect: (req,res,next)=>{
-    var fields = ['id','name','description','status','projectSprintId','userId','projectId'];
+    var fields = ['id','name','description','status','userId','projectId','projectSprintId'];
     var reqdata = new req.collect(req,fields);
 
     req.agileMate_taskData = reqdata.collect(req,res);

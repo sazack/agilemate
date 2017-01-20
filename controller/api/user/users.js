@@ -160,6 +160,49 @@ module.exports = {
       if(err) return next(err);
     }
   },
+
+  myDetail:(req,res,next)=>{
+    var options = {
+      where:{
+        id:req.user.id
+      }
+    }
+    users.retrieve(options,success,error);
+    function success(result){
+      if(result&&result.length){
+        req.cdata = {
+          success:1,
+          message:"User Detail Retrieved",
+          data:result
+        }
+        next();
+      }
+    }
+    function error(err){
+      if(err) return next(err);
+    }
+  },
+  update:(req,res,next)=>{
+    var options = {
+      data:req.agileMate_userData,
+      where:{
+        id:req.user.id
+      }
+    }
+    users.update(options,success,error)
+    function success(result){
+      if(result && result.length){
+        req.cdata = {
+          success:1,
+          message:"Data Updated Successfully"
+        }
+        next();
+      }
+    }
+    function error(err){
+      if(err) return next(err);
+    }
+  }
   // searchDevs: (req,res,next)=>{
   //   var options = {
   //     where:{

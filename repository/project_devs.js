@@ -24,6 +24,7 @@ module.exports = {
         model:model.projects
       }]
     }).then((data)=>{
+      console.log(data);
       success(JSON.parse(JSON.stringify(data)))
     },error)
   }

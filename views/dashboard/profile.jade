@@ -1,0 +1,36 @@
+.centerDiv(ng-if="!edit")
+  .row
+    .col-sm-12
+      .card
+        .card-block
+          img(src="/images/avatar.png" alt="Card Image")
+          h4.card-title {{profile.username}}
+          h6.card-title.text-muted {{profile.address}}
+          h6.card-title.text-muted {{profile.phone}}
+          label Working Since
+          h6.card-title.text-muted {{profile.createdAt | date:'dd-MM-yyyy'}}
+          p.card-text {{profile.email}}
+        .card-block(layout-align="center center")
+          a.btn.btn-primary(ng-click="toggleEdit()") Edit
+
+.row(ng-if="edit")
+  form.col-md-12(ng-submit="editProfile()")
+    .row
+      .input-field.col-md-6
+        input#last_name.validate(type='text' ng-model="profile.name")
+        label(for='last_name') Name
+    .row
+      .input-field.col-md-12
+        input.validate(type='email' ng-model="profile.email")
+        label(for='email') Email
+    .row
+      .input-field.col-md-12
+        input#email.validate(type='text' ng-model="profile.address")
+        label(for='address') Address
+    .row
+      .input-field.col-md-12
+        input.validate(type="text" ng-model="profile.phone")
+        label(for='phone') Phone
+    .row
+      .input-field.col-md-12
+        input.btn.btn-primary(type="submit" Value="Submit")
