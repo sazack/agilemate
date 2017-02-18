@@ -29,7 +29,7 @@ angular.module('controllers',[])
   $scope.signup = function(){
     // console.log($scope.organization)
     $http.post('/register',$scope.register).
-    success(function(result){
+      success(function(result){
       if(result.success){
         $window.localStorage.agileMateToken = result.token
         $state.go('Dashboard.feed')
@@ -42,7 +42,6 @@ angular.module('controllers',[])
 }])
 
 .controller('DashController',['$scope','$state','$http','$window',function($scope,$state,$http,$window,$rootScope){
-  // console.log("Hello");
   $scope.logOut = function(){
     delete $window.localStorage.agileMateToken
     $state.go('home')
@@ -208,7 +207,6 @@ angular.module('controllers',[])
   }
   $scope.project.id = $scope.projDetails.id
   $scope.addDevstoProject = function(){
-    console.log("Hit Vayo Suman Bhai");
     $http.post('/user/project/developers/add',$scope.project).
       success(function(result){
         console.log(result);
